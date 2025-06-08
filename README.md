@@ -13,7 +13,16 @@ source venv/bin/activate
 
 ## Fill your motivation_letter.txt
 
-Make a generic one
+## Fill your blacklist.txt
+
+The format is:
+
+```
+google
+meta
+netflix
+ect
+```
 
 ## Create an .env file
 
@@ -22,8 +31,15 @@ It should contains
 ```
 EMAIL=...
 PASSWORD="..."
+QUERIES='["backend", "frontend"]'
 ```
 
-## modify in wttj_getter.py line 52 and 53
+## Run wttj_getter.py
 
-queries and blacklist
+`python3 wttj_getter.py` (don't forget to activate the virtual env)
+
+You would get a list of the scrapped enterprises in enterprises.json
+
+## Run wttj_sender.py
+
+`python3 wttj_sender.py` (don't forget to activate the virtual env)

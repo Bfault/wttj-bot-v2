@@ -2,6 +2,7 @@ import json
 import time
 
 from playwright.sync_api import sync_playwright
+from dotenv import load_dotenv
 
 from wttj_utils import EntrepriseInfo, goto, login, URL
 
@@ -50,4 +51,5 @@ def main():
 
 
 if __name__ == "__main__":
+    load_dotenv()
     main()

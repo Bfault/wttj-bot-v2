@@ -1,8 +1,10 @@
+import os
 import json
 import time
 
 from bs4 import BeautifulSoup
 from playwright.sync_api import sync_playwright
+from dotenv import load_dotenv
 
 from wttj_utils import EntrepriseInfo, get_wait_time, goto, login, URL
 
@@ -49,8 +51,10 @@ def get_enterprises_info(page, query: str, blacklist: list = None):
     return enterprises
 
 def main(save=False):
-    queries = ["backend", "devops", "mlops", "data"]
-    blacklist = ["alyce", "milvue"]
+    queries = os.environ.get("QUERIES")
+
+    with open('blacklist.txt', 'r') as f:
+        blacklist = [line.strip().lower() for line in f.readlines()]
 
     with sync_playwright() as p:
         browser = p.chromium.launch(headless=False)
@@ -73,4 +77,5 @@ def main(save=False):
         browser.close()
 
 if __name__ == "__main__":
+    load_dotenv()
     main(save=True)

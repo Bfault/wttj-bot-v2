@@ -1,8 +1,6 @@
 import os
 import time
 
-from dotenv import load_dotenv
-
 URL = "https://www.welcometothejungle.com/fr"
 
 class EntrepriseInfo:
@@ -18,7 +16,6 @@ def goto(page, url):
     time.sleep(get_wait_time())
 
 def login(page):
-    load_dotenv()
     email = os.getenv("EMAIL")
     password = os.getenv("PASSWORD")
 
