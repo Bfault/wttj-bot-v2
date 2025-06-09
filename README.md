@@ -32,6 +32,7 @@ It should contains
 EMAIL=...
 PASSWORD="..."
 QUERIES='["backend", "frontend"]'
+REGION=rouen
 ```
 
 ## Run wttj_getter.py

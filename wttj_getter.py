@@ -8,13 +8,25 @@ from dotenv import load_dotenv
 
 from wttj_utils import EntrepriseInfo, get_wait_time, goto, login, URL
 
+def select_region(page):
+    region = os.environ.get("REGION", None)
+    if region is None:
+        return
+    region = region.lower()
+    page.fill('[data-testid="companies-search-search-field-location"]', region)
+    time.sleep(get_wait_time())
+    page.click('[data-testid="place-item-0"]')
+    time.sleep(get_wait_time())
+
 def get_enterprises_info(page, query: str, blacklist: list = None):
     if blacklist is None:
         blacklist = []
 
     def get_last_page(page, query):
         url = f"{URL}/companies?query={query}&page=1"
+
         goto(page, url)
+        select_region(page)
         page.get_by_label("Candidatures spontanées acceptées").click()
         time.sleep(get_wait_time())
         html = page.content()
@@ -51,7 +63,7 @@ def get_enterprises_info(page, query: str, blacklist: list = None):
     return enterprises
 
 def main(save=False):
-    queries = os.environ.get("QUERIES")
+    queries = json.loads(os.environ.get("QUERIES"))
 
     with open('blacklist.txt', 'r') as f:
         blacklist = [line.strip().lower() for line in f.readlines()]
